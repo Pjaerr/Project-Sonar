@@ -5,17 +5,34 @@ using UnityEngine;
 public class Sonar : MonoBehaviour
 {
     //Default sonar scale is 0.08f
-    public GameObject levelSonar; //Reveals the level objects.
+
+    //Sonar Attributes and Objects
+    private Transform trans;
     [SerializeField] private float sonarLifespan = 3f;
-    [SerializeField] private float scalingIncrement = 0.01f;
+    [SerializeField] private float scalingIncrement = 0.001f;
 
     void Start()
     {
-        ScaleSonar();
+        trans = GetComponent<Transform>();
     }
 
-    void ScaleSonar()
+    void Update()
     {
-        //Increase sonar size by scalingIncrement until sonarLifespan has passed. Maybe need to use IEnumerator.
+        StartCoroutine(ScaleSonar());
     }
-}
+
+    IEnumerator ScaleSonar()
+    {
+        float timePassed = 0;
+        do
+        {
+            trans.localScale = new Vector2(trans.localScale.x + scalingIncrement, trans.localScale.y + scalingIncrement);
+            yield return new WaitForSeconds(0.1f);
+
+            timePassed += 0.1f;
+
+        } while (timePassed <= sonarLifespan);
+
+        Destroy(this.gameObject);
+     }
+  }
