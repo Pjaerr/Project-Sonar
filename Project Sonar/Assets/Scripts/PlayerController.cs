@@ -55,11 +55,11 @@ public class PlayerController : MonoBehaviour
 
     void MovementAndControls()
     {
-        if (Input.GetKey(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             rb.velocity = new Vector2(0, movementSpeed);
         }
-        else if (Input.GetKey(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
             rb.velocity = new Vector2(0, -movementSpeed);
         }
@@ -84,8 +84,6 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 0;
 
         GameManager.instance.UIControl();
-
-        Debug.Log("GAME OVER!");
 
     }
 

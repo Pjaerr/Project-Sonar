@@ -18,11 +18,24 @@ public class GameManager : MonoBehaviour
     public GameObject Level;
     [SerializeField] private float levelMovementSpeed = 3;
 
-    public GameObject firstWall;
-    public GameObject firstWallEndPoint;
-    public GameObject secondWall;
-    public GameObject secondWallStartPoint;
-    
+    //Level Generation Stuff
+    [SerializeField] private GameObject[] levelObjects; //Array of walls to be spawned.
+    private int levelsPlaced = 0;
+    private float lengthOfLevelObjects = 11.76f;
+    [SerializeField] private Transform SpawnPoint;
+
+    public void LevelGeneration() //Make initial start position be parameters that are passed. //Just uncomment pls.
+    {
+        if (levelsPlaced == levelObjects.Length)
+        {
+            levelsPlaced = 0;
+        }
+        
+        Instantiate(levelObjects[levelsPlaced], levelObjects[levelsPlaced].GetComponent<Transform>().position = SpawnPoint.position, Quaternion.Euler(new Vector3(0, 0, 0)), Level.GetComponent<Transform>());
+
+        levelsPlaced++;
+
+    }
 
     void Awake()
     {
@@ -30,8 +43,12 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        Score();
-        //MoveLevel();
+        if (scoreText != null)
+        {
+            Score();
+        }
+        
+        MoveLevel();
     }
 
     void Singleton()
@@ -50,8 +67,7 @@ public class GameManager : MonoBehaviour
     {
         if (Level != null)
         {
-            float var2 = levelMovementSpeed + (Time.time * 0.01f);
-            Level.GetComponent<Rigidbody2D>().velocity = new Vector2(-var2, 0);
+            Level.GetComponent<Rigidbody2D>().velocity = new Vector2(-levelMovementSpeed, 0);
         }
     }
 
@@ -82,35 +98,16 @@ public class GameManager : MonoBehaviour
     }
     void Score()
     {
-        score = (int)Time.time;
+        score = (int)Time.timeSinceLevelLoad;
         scoreText.text = score.ToString();
     }
     public void UIControl()
     {
         deathUI.SetActive(true);
     }
-
-    //Level Generation
-
-    public void LevelGen()
+    public void Restart()
     {
-        //Vector2 endPointWorld = new Vector2(0, firstWall.GetComponent<Transform>().position.y - firstWallEndPoint.GetComponent<Transform>().position.y);
-
-        secondWall.GetComponent<Transform>().position = firstWallEndPoint.GetComponent<Transform>().position;
-
-        secondWall.GetComponent<Transform>().position = new Vector2(secondWall.GetComponent<Transform>().position.x, secondWall.GetComponent<Transform>().position.y - secondWallStartPoint.GetComponent<Transform>().localPosition.y);
-        
-        
-        
-        //Vector2 var = new Vector2(0, secondWallStartPoint.GetComponent<Transform>().localPosition.y + secondWall.GetComponent<Transform>().position.y);
-
-
-        //secondWall.GetComponent<Transform>().position = new Vector2(14.8f, secondWall.GetComponent<Transform>().position.y + var.y);
-
-        Debug.Log("LevelGen() called!");
+        SceneManager.LoadScene(1);
+        Time.timeScale = 1;
     }
-
-
-
-
 }
