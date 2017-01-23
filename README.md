@@ -9,4 +9,4 @@ The state of the game when the jam ended can be found in the 3rd commit.
 
 Downloadable executable here: https://goo.gl/BklyrN
 
-Experimental WebGL link here: n/a
+Experimental WebGL link here: https://pogolauncher.itch.io/project-sonar
