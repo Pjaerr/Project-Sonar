@@ -65,12 +65,17 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            rb.velocity = Vector2.zero;
+            rb.velocity = Vector2.zero; //If no key is being pressed, make player velocity 0.
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             FireSonar();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameManager.instance.Pause(true);
         }
     }
 
@@ -81,10 +86,7 @@ public class PlayerController : MonoBehaviour
             FireSonar();
         }
 
-        Time.timeScale = 0;
-
-        GameManager.instance.UIControl();
-
+        GameManager.instance.OnDeathControl("OpenDeathUI");
     }
 
     void OnTriggerEnter2D(Collider2D col)

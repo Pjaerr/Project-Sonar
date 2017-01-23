@@ -6,7 +6,7 @@ public class WallController : MonoBehaviour
     {
         if (col.gameObject.tag == "SpawnTrigger")
         {
-            GameManager.instance.LevelGeneration();
+            GameManager.instance.gameObject.GetComponent<LevelGeneration>().LevelPlacement();
         }
     }
 }
